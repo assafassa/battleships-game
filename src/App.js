@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router,Route, Switch} from 'react-router-dom';
+import Navbar from './navbar';
+import Home from './Home';
+import './styles/home.css'
+import Game from './game/Game';
+import { useState } from "react";
 
 function App() {
+  const [isRedirected, setRedirected] = useState(false);
+  const [playername, setPlayername]=useState('');
+  const [gameoption,setGameoption]=useState('computer');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar/>
+        <div className="content">
+          <Switch>
+            <Route exact path="/">
+              <Home setRedirected={setRedirected} setGameoption={setGameoption} 
+              setPlayername={setPlayername} gameoption={gameoption} playername={playername}/>
+            </Route>
+            <Route path="/game">
+              <Game gameoption={gameoption} playername={playername}/>
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
 }
 
 export default App;
+/*
+{isRedirected &&<Route path="/game">
+              <Game gameoption={gameoption} playername={playername}/>
+            </Route>}
+*/

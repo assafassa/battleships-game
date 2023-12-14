@@ -1,0 +1,16 @@
+.js-button{
+    height: 30px;
+    background-color: rgba(1, 1, 1, 0.05);
+    border: '1px';
+    border-style: solid;
+    border-color:rgba(1, 1, 1, 0.2) ;
+    cursor:pointer;
+    font: inherit;
+    color: red;
+
+}
+.name{
+    font-size: 23px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
