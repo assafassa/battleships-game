@@ -4,9 +4,12 @@ import Board from './Board';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import './gamefiles/game.css'
-
+import {opopnentboard,opponentships} from './gamefiles/control'
+import Headboard from './Headboard';
 
 const Game = ({gameoption,playername}) => {
+  const [opopnentBoard,setopopnentBoard]=useState(opopnentboard)
+  const [opponentShips,setopponentShips]=useState(opponentships)
   
   const [board, setBoard] = useState([
     ['00', '31', '32', '33', '00', '00', '00', '41', '00', '00'],
@@ -28,6 +31,7 @@ const Game = ({gameoption,playername}) => {
       isHorizontal: true,
       images: ['ship1/1.png', 'ship1/2.png', 'ship1/3.png', 'ship1/4.png', 'ship1/5.png', 'ship1/6.png'],
       position: ['40', '41', '42', '43', '44', '45'], 
+      sunk:true
     },
     {
       id: 2,
@@ -36,6 +40,7 @@ const Game = ({gameoption,playername}) => {
       isHorizontal: false,
       images: ['ship2/1.png', 'ship2/2.png', 'ship2/3.png', 'ship2/4.png'],
       position: ['65', '75', '85', '95'], 
+      sunk:false
     },
     {
       id: 3,
@@ -43,7 +48,8 @@ const Game = ({gameoption,playername}) => {
       length:3,
       isHorizontal: true,
       images: ['ship3/1.png', 'ship3/2.png', 'ship3/3.png'],
-      position: ['01', '02', '03'], 
+      position: ['01', '02', '03'],
+      sunk:false 
     },
     {
       id: 4,
@@ -52,12 +58,14 @@ const Game = ({gameoption,playername}) => {
       isHorizontal: false,
       images: ['ship4/1.png', 'ship4/2.png', 'ship4/3.png', 'ship4/4.png'],
       position: ['07', '17', '27','37'], 
+      sunk:false
     },
     // ... add more ships
   ]);
   
+  const [beforeGame, setbeforeGame]=useState(false)
   const placeShip = (shipnum,photonum,row, col,action) => {
-    if (!isDraggable){
+    if (!beforeGame){
       return(false)
     }
     let check=0
@@ -147,9 +155,20 @@ const Game = ({gameoption,playername}) => {
     
 
   };
+  const [chosenspot,setchosenspot]=useState('999')
+  const choosequare=(row,col)=>{
+    let newoponBoard=_.cloneDeep(opopnentBoard)
+    if (opopnentBoard[(chosenspot[0])][(chosenspot[1])]=='008'||chosenspot=='999'){
+        newoponBoard[(chosenspot[0])][(chosenspot[1])]='00'
+        newoponBoard[row][col]='008'
+        setopopnentBoard(newoponBoard)
+        setchosenspot(`${row}${col}`)
 
-  let isDraggable= true
-  
+    }
+  }
+  const updatemyboard=()=>{
+
+  }
   return (
     <DndProvider backend={HTML5Backend}>
       <div
@@ -165,11 +184,17 @@ const Game = ({gameoption,playername}) => {
         >
           <div className='name'>{playername}</div>
           <div className="littleboard">
-            //add Headboard
-            <button className='js-button readybutton' onClick={()=>isDraggable=false}>Ready</button>
+            <Headboard ships={ships}/>
           </div>
           <div className="boarddisplay">
-            <Board board={board} placeShip={placeShip} ships={ships} />
+            <Board player={'me'} board={board} actfunction={placeShip} ships={ships} beforeGame={beforeGame} />
+          </div>
+        </div>
+        <div className='middle'>
+          <button className='js-button readybutton' onClick={()=>setbeforeGame(false)}>Ready</button>
+          <div className='messegebord'>
+            messeage 
+
           </div>
         </div>
         <div className="opponent"
@@ -177,7 +202,16 @@ const Game = ({gameoption,playername}) => {
           display: 'block',
         }}
         >
+        
           <div className='name'>{gameoption}</div>
+          <div className="littleboard">
+            <Headboard ships={opponentShips}/>
+          </div>
+          <div className="boarddisplay">
+            <Board player={'opopnent'} board={opopnentBoard} actfunction={choosequare} ships={opponentShips}beforeGame={beforeGame} />
+          </div>
+          
+          
         </div>
         
     </div>

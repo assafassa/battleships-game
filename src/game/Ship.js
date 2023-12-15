@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDrag, DragPreviewImage} from 'react-dnd';
 
-const Ship = ({board,placeShip, x, y, ships}) => {
+const Ship = ({beforeGame, player,board,placeShip, x, y, ships}) => {
     const [{ isDragging }, drag, preview] = useDrag({
         type: 'SHIP',
         item: () => ({
@@ -19,6 +19,8 @@ const Ship = ({board,placeShip, x, y, ships}) => {
     let shipnum
     let photonum
     let verimage
+    let darkmode
+    let cursoricon
     shipnum=Number(board[x][y][0])
     photonum=Number(board[x][y][1])
     isHorizontal=ships[Number(shipnum)-1].isHorizontal
@@ -30,8 +32,16 @@ const Ship = ({board,placeShip, x, y, ships}) => {
         imageStyle='rotate(90deg)'
         verimage='ver'
     }
-    
-    
+    if(player=='me'){
+      darkmode='brightness(1.0)'
+    }else if (player='opopnent'){
+      darkmode='brightness(0.3)'
+    }
+    if(beforeGame){
+      cursoricon='grab'
+    }else if (!beforeGame){
+      cursoricon='auto'
+    }
 
   return (
     <div>
@@ -41,11 +51,15 @@ const Ship = ({board,placeShip, x, y, ships}) => {
         alt="Ship" 
         style={{ width: '40px',
         height: '40px',
-        position: 'absolute' ,
         transform: imageStyle,
-        cursor: 'grab',
+        cursor: cursoricon,
+        filter:darkmode,
         }}
-        onDoubleClick={() => placeShip(shipnum,photonum,x,y,'turn')}
+        onDoubleClick={() => {
+          if (beforeGame){
+            placeShip(shipnum,photonum,x,y,'turn')
+          }
+        }}
         ref={drag} 
         />
         

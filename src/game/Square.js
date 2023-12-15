@@ -3,7 +3,7 @@ import React from 'react';
 import { useDrop } from 'react-dnd';
 import Ship from './Ship'
 
-const Square = ({board,placeShip, x, y, ships}) => {
+const Square = ({beforeGame, player,board,placeShip, x, y, ships}) => {
     const [,drop]=useDrop({
         accept:'SHIP',
         drop:(item)=>{
@@ -36,7 +36,7 @@ const Square = ({board,placeShip, x, y, ships}) => {
         width: '38px',
         height: '38px',
         border: '1px solid rgba(1, 1, 1, 0.2)',
-        backgroundColor: 'rgba(1, 1, 1, 0.2)',
+        backgroundColor: 'rgba(1, 1, 1, 0.4)',
         boxSizing: 'border-box',
         zIndex:'0'
     }}
@@ -50,6 +50,8 @@ const Square = ({board,placeShip, x, y, ships}) => {
             board={board} 
             placeShip={placeShip}
             ships={ships}
+            player={player}
+            beforeGame={beforeGame}
         />}
         {isship&&isexplotion&&<div>
             <img src={`${process.env.PUBLIC_URL}/images/expolotions/4.gif` }
