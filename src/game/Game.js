@@ -1,174 +1,93 @@
-import React, { useState } from 'react';
-import _ from 'lodash';
-import Board from './Board';
+import React, { useState ,useEffect} from 'react';
+import Board from './components/Board';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import './gamefiles/game.css'
-import {opopnentboard,opponentships} from './gamefiles/control'
-import Headboard from './Headboard';
-
+import Headboard from './components/Headboard';
+import { aopopnentBoard, aopponentShips,aboard,aships} from './gamefiles/frontend/gameState';
+import{useReactiveGame} from './gamefiles/frontend/reactiveGame'
+import{readytoplay,takechosenspot,getoponchosenspot} from './gamefiles/backend/controler'
+import _ from 'lodash';
 const Game = ({gameoption,playername}) => {
-  const [opopnentBoard,setopopnentBoard]=useState(opopnentboard)
-  const [opponentShips,setopponentShips]=useState(opponentships)
+  const [opopnentBoard, setOpopnentBoard] = useState(aopopnentBoard)
+  const [opponentShips, setOpponentShips] = useState(aopponentShips)
+  const [board, setBoard] = useState(aboard)
+  const [ships, setShips] = useState(aships)
+  const [beforeGame, setBeforeGame] = useState(true);
+  const [chosenSpot, setChosenSpot] = useState('999');
+  const [newsboard, setnewsboard] = useState('beforeGame');
+  const{
+    aplaceShip,
+    achoosequare,
+  } = useReactiveGame();
   
-  const [board, setBoard] = useState([
-    ['00', '31', '32', '33', '00', '00', '00', '41', '00', '00'],
-    ['00', '00', '00', '00', '00', '00', '00', '42', '00', '00'],
-    ['00', '00', '00', '00', '00', '00', '00', '43', '00', '00'],
-    ['00', '00', '00', '00', '00', '00', '00', '44', '00', '00'],
-    ['11', '12', '13', '14', '15', '16','00', '00', '00', '00'],
-    ['00', '00', '00', '00', '00', '00', '00','00', '00', '00'],
-    ['00', '00', '00', '00', '00', '21', '00','00', '00', '00'],
-    ['00', '00', '00', '00', '00', '22', '00','00', '00', '00'],
-    ['00', '00', '00', '00', '00', '23', '00','00', '00', '00'],
-    ['00', '00', '00', '00', '00', '24', '00','00', '00', '00']
-  ]);
-  const [ships, setShips] = useState([
-    {
-      id: 1,
-      type: 'ship1',
-      length:6,
-      isHorizontal: true,
-      images: ['ship1/1.png', 'ship1/2.png', 'ship1/3.png', 'ship1/4.png', 'ship1/5.png', 'ship1/6.png'],
-      position: ['40', '41', '42', '43', '44', '45'], 
-      sunk:true
-    },
-    {
-      id: 2,
-      type: 'ship2',
-      length:4,
-      isHorizontal: false,
-      images: ['ship2/1.png', 'ship2/2.png', 'ship2/3.png', 'ship2/4.png'],
-      position: ['65', '75', '85', '95'], 
-      sunk:false
-    },
-    {
-      id: 3,
-      type: 'ship3',
-      length:3,
-      isHorizontal: true,
-      images: ['ship3/1.png', 'ship3/2.png', 'ship3/3.png'],
-      position: ['01', '02', '03'],
-      sunk:false 
-    },
-    {
-      id: 4,
-      type: 'ship4',
-      length:4,
-      isHorizontal: false,
-      images: ['ship4/1.png', 'ship4/2.png', 'ship4/3.png', 'ship4/4.png'],
-      position: ['07', '17', '27','37'], 
-      sunk:false
-    },
-    // ... add more ships
-  ]);
-  
-  const [beforeGame, setbeforeGame]=useState(false)
-  const placeShip = (shipnum,photonum,row, col,action) => {
-    if (!beforeGame){
+  useEffect(() => {
+    // This code runs whenever the 'newsboard' state changes
+    console.log('newsboard has changed:', newsboard);
+  }, [newsboard]);
+
+  const placeShip=(shipnum,photonum,row, col,action)=>{
+    let result=aplaceShip(beforeGame,board,ships,shipnum,photonum,row, col,action)
+    if (result==false){
       return(false)
-    }
-    let check=0
-    let newShips=_.cloneDeep(ships);
-    let newBoard=_.cloneDeep(board);
-    let ship=ships[shipnum-1]
-    let shiplength=ship.length
-    let switchaction
-    if (action=='turn')
-      if(ship.isHorizontal){
-        newShips[shipnum-1].isHorizontal=false
-        switchaction=true
-      }else {
-        newShips[shipnum-1].isHorizontal=true
-      }
-    else if (action=='move'){
-      if(!ship.isHorizontal){
-        switchaction=true
-      }
+    }else{
+      let {newBoard,newShips}=result
+      setBoard(newBoard)
+      setShips(newShips)
     }
     
-    if (row>=(photonum-1) && row<=(9-shiplength+photonum) && switchaction){
-      
-      ship.position.map((spot, index) => {
-        
-        newBoard[spot[0]][spot[1]]='00'
-        
-      });
-      for (let i = 0; i < photonum; i++) {
-        if (board[(row-i)][col][0]==0||board[(row-i)][col][0]==`${shipnum}` ){
-          newBoard[(row-i)][col]=`${shipnum}${(photonum-i)}`
-          newShips[shipnum-1].position[photonum-i-1]=`${row-i}${col}`
-        }else{
-          check=2
-
-        }
-        ;
-      }
-      for(let i = 1; i < (shiplength-photonum+1); i++) {
-        if (board[(row+i)][col][0]==0||board[(row+i)][col][0]==`${shipnum}`){
-          newBoard[(row+i)][col]=`${shipnum}${(photonum+i)}`
-          newShips[shipnum-1].position[photonum+i-1]=`${row+i}${col}`
-        }else{
-          check=1
-        }
-        ;
-      }
-      if (check==0){
-        setBoard(newBoard)
-        setShips(newShips)
-      }else if (check!=0){
-        return(false)
-      }
-    }else if (col>=(photonum-1) && col<=(9-shiplength+photonum) &&(!switchaction)){
-      
-      ship.position.map((spot, index) => {
-        
-        newBoard[spot[0]][spot[1]]='00'
-    
-      });
-      for (let i = 0; i < photonum; i++) {
-        if (board[(row)][col-i][0]==0 ||board[(row)][col-i][0]==`${shipnum}`){
-          newBoard[(row)][col-i]=`${shipnum}${(photonum-i)}`
-          newShips[shipnum-1].position[photonum-i-1]=`${row}${col-i}`
-        }else{
-          check=2
-
-        }
-        ;
-      }
-      for(let i = 1; i < (shiplength-photonum+1); i++) {
-        if (board[(row)][col+i][0]==0||board[(row)][col+i][0]==`${shipnum}`){
-          newBoard[(row)][col+i]=`${shipnum}${(photonum+i)}`
-          newShips[shipnum-1].position[photonum+i-1]=`${row}${col+i}`
-        }else{
-          check=1
-        }
-        ;
-      }
-      if (check==0){
-        setBoard(newBoard)
-        setShips(newShips)
-      }else if (check!=0){
-        return(false)
-      }
-    }
-    
-
-  };
-  const [chosenspot,setchosenspot]=useState('999')
+  }
   const choosequare=(row,col)=>{
-    let newoponBoard=_.cloneDeep(opopnentBoard)
-    if (opopnentBoard[(chosenspot[0])][(chosenspot[1])]=='008'||chosenspot=='999'){
-        newoponBoard[(chosenspot[0])][(chosenspot[1])]='00'
-        newoponBoard[row][col]='008'
-        setopopnentBoard(newoponBoard)
-        setchosenspot(`${row}${col}`)
+    let result=achoosequare(chosenSpot,opopnentBoard,row,col)
+    if (result==false){ 
+    }else{
+      let {newoponBoard,newChosenspot}=result
+      setOpopnentBoard([...newoponBoard])
+      setChosenSpot(newChosenspot)
 
     }
   }
-  const updatemyboard=()=>{
+  const readybuttonhandler =async()=>{
+    if (beforeGame==true){
+      setBeforeGame(false)
+      readytoplay()
+      setnewsboard('chooseSpot')
+    }else if (chosenSpot!='998'){
+      let thechosenSpot=_.cloneDeep(chosenSpot)
+      setChosenSpot('998')
+      setnewsboard('shager')
+      let result=await takechosenspot(thechosenSpot,opopnentBoard,opponentShips)
+      let{newboard,newships,isgameover,news}=result
+      setOpopnentBoard([...newboard])
+      setOpponentShips([...newships])
+      //add value to see what happend
+      if (isgameover=='gameover'){
+        setnewsboard('you won')
+        console.log('you won')
+        return('')
+      }else{
+        setnewsboard('you '+news)
+      }
+      let newresult=await getoponchosenspot(board,ships,newboard)
+      setBoard([...newresult.newboard])
+      setShips([...newresult.newships])
+      //add value to see what happend
+      if (newresult.isgameover=='gameover'){
+        setnewsboard('you lost')
+        return('')
+      }else{
+        setnewsboard('you got '+newresult.news)
+      }
+      setTimeout(() => {
+        setOpopnentBoard([...newresult.randomspotboard])
+        setChosenSpot(newresult.newspot)
+        setnewsboard('chooseSpot')
+      }, 5000);
 
+    }
   }
+
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div
@@ -191,7 +110,7 @@ const Game = ({gameoption,playername}) => {
           </div>
         </div>
         <div className='middle'>
-          <button className='js-button readybutton' onClick={()=>setbeforeGame(false)}>Ready</button>
+          <button className='js-button readybutton' onClick={readybuttonhandler}>Ready</button>
           <div className='messegebord'>
             messeage 
 

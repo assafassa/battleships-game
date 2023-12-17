@@ -43,3 +43,7 @@
     
 
 }
+.js-button:active{
+    background-color: rgb(39, 50, 255);
+    color: rgb(255, 172, 172);
+}

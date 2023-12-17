@@ -17,7 +17,6 @@ const Square = ({beforeGame, player,board,placeShip, x, y, ships}) => {
         isship=true
         if(board[x][y][2]==7){
             isexplotion=true
-            console.log('expload')
         }else{
             isexplotion=false
         }
@@ -58,7 +57,7 @@ const Square = ({beforeGame, player,board,placeShip, x, y, ships}) => {
             style={{
                 height:'40px',
                 width:'40px',
-                transform: 'translate(0%, -0%)',
+                transform: 'translate(0%, -100%)',
             }}
             ></img>
         </div>

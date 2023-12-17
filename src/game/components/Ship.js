@@ -32,9 +32,9 @@ const Ship = ({beforeGame, player,board,placeShip, x, y, ships}) => {
         imageStyle='rotate(90deg)'
         verimage='ver'
     }
-    if(player=='me'){
+    if(!(ships[Number(shipnum)-1].sunk)){
       darkmode='brightness(1.0)'
-    }else if (player='opopnent'){
+    }else{
       darkmode='brightness(0.3)'
     }
     if(beforeGame){

@@ -1,6 +1,6 @@
 import React from 'react';
 import Square from './Square';
-import Opponentsquare from './gamefiles/Opponentquare';
+import Opponentsquare from './Opponentquare';
 
 const Board = ({beforeGame, player,board,actfunction,ships}) => {
 

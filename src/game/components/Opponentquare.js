@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Ship from '../Ship';
+import Ship from './Ship';
 
 const Opponentsquare = ({beforeGame,player,choosequare,board, x, y, ships}) => {
     let isship
@@ -53,7 +53,7 @@ const Opponentsquare = ({beforeGame,player,choosequare,board, x, y, ships}) => {
         zIndex:'0',
         cursor:cursoricon,
     }}
-    onDoubleClick={()=>{
+    onClick={()=>{
         if (!beforeGame&&cursoricon=='pointer'){
             choosequare(x,y)
         }
