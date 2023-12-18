@@ -54,7 +54,13 @@
     font-family: inherit;
     color: rgb(231, 251, 7)
 } 
-.transparentfill{
-    color: transparent;
+.resultmessege{
+    margin-top:20px ;
+    margin-left:80px;
+    text-align: center;
+    height: 40px;
+    width:350px;
+    font-size: 18px;
+    color:rgb(215, 6, 6);
 }
 

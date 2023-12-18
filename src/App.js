@@ -7,21 +7,26 @@ import { useState } from "react";
 
 function App() {
   const [isRedirected, setRedirected] = useState(false);
-  const [playername, setPlayername]=useState('');
+  const [playername, setPlayername]=useState(null);
+  const [playerID, setPlayerID]=useState(null);
   const [gameoption,setGameoption]=useState('computer');
-
+  const [opponent,setopponent]=useState(null);
+  ////dont forget sound
+  const [sound,setsound]=useState('');
   return (
     <Router>
       <div className="App">
-        <Navbar/>
+        <Navbar playerID={playerID}/>
         <div className="content">
           <Switch>
             <Route exact path="/">
-              <Home setRedirected={setRedirected} setGameoption={setGameoption} 
-              setPlayername={setPlayername} gameoption={gameoption} playername={playername}/>
+              <Home setopponent={setopponent}setRedirected={setRedirected} setGameoption={setGameoption} 
+              setPlayername={setPlayername} gameoption={gameoption} playername={playername}
+              playerID={playerID} setPlayerID={setPlayerID}
+              />
             </Route>
             <Route path="/game">
-              <Game gameoption={gameoption} playername={playername}/>
+              <Game opponent={opponent}gameoption={gameoption} playername={playername} playerID={playerID}/>
             </Route>
           </Switch>
         </div>

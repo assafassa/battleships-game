@@ -9,7 +9,7 @@ import { aopopnentBoard, aopponentShips,aboard,aships} from './gamefiles/fronten
 import{useReactiveGame} from './gamefiles/frontend/reactiveGame'
 import{readytoplay,takechosenspot,getoponchosenspot} from './gamefiles/backend/controler'
 import _ from 'lodash';
-const Game = ({gameoption,playername}) => {
+const Game = ({playerID, opponent, gameoption,playername}) => {
   const [opopnentBoard, setOpopnentBoard] = useState(aopopnentBoard)
   const [opponentShips, setOpponentShips] = useState(aopponentShips)
   const [board, setBoard] = useState(aboard)
@@ -17,7 +17,12 @@ const Game = ({gameoption,playername}) => {
   const [beforeGame, setBeforeGame] = useState(true);
   const [chosenSpot, setChosenSpot] = useState('999');
   const [newsboard, setnewsboard] = useState('beforeGame');
-  
+  let isgameoption
+  if (opponent){
+    isgameoption=opponent
+  }else{
+    isgameoption=gameoption
+  }
   const{
     aplaceShip,
     achoosequare,
@@ -27,7 +32,6 @@ const Game = ({gameoption,playername}) => {
     // This code runs whenever the 'newsboard' state changes
     console.log('newsboard has changed:', newsboard);
   }, [newsboard]);
-  const opopnentname='opponent'
   const placeShip=(shipnum,photonum,row, col,action)=>{
     let result=aplaceShip(beforeGame,board,ships,shipnum,photonum,row, col,action)
     if (result==false){
@@ -69,8 +73,15 @@ const Game = ({gameoption,playername}) => {
       }else{
         setnewsboard('you '+news)
       }
-      let newresult=await getoponchosenspot(board,ships,newboard)
-      setBoard([...newresult.newboard])
+      if (gameoption=='computer'){
+        let newresult=await getoponchosenspot(board,ships,newboard)
+        opponentmove(newresult)
+      }
+
+    }
+  }
+  const opponentmove=(newresult)=>{
+    setBoard([...newresult.newboard])
       setShips([...newresult.newships])
       //add value to see what happend
       if (newresult.isgameover=='gameover'){
@@ -84,10 +95,7 @@ const Game = ({gameoption,playername}) => {
         setChosenSpot(newresult.newspot)
         setnewsboard('chooseSpot')
       }, 5000);
-
-    }
   }
-
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -102,7 +110,7 @@ const Game = ({gameoption,playername}) => {
           display: 'block',
         }}
         >
-          <div className='name'>{playername}</div>
+          <div className='name'>{isgameoption}</div>
           <div className="littleboard">
             <Headboard ships={ships}/>
           </div>

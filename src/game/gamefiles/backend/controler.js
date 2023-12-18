@@ -7,6 +7,7 @@ export function readytoplay(){
     isreadytoplay=true
 }
 
+
 export async function takechosenspot(chosenSpot,opopnentBoard,opponentShips){
     let theopopnentBoard=_.cloneDeep(opopnentBoard)
     let theopponentShips=_.cloneDeep(opponentShips)

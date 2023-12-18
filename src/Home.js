@@ -1,25 +1,71 @@
 
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { initializeWebSocket } from "./game/gamefiles/backend/websocket";
+import { useState ,useEffect } from "react";
 
 
-
-const Home = ({ setRedirected, setGameoption, setPlayername,gameoption,playername}) => {
+const Home = ({playerID, setPlayerID, setopponent,setRedirected, setGameoption, setPlayername,gameoption,playername}) => {
+    const [socket,setSocket]=useState(null)
+    const [result,setResult]=useState('')
     const history=useHistory()
+    useEffect(() => {
+        if (socket){
+            socket.addEventListener('message', (e) => {
+                
+                let receivedData = JSON.parse(e.data)
+                
+                if (receivedData.message=='noavailableplayes'){
+                    setResult('noavailableplayes')
+                }else{
+                    setGameoption('online')
+                    setopponent(receivedData.message)
+                    setRedirected(true)
+                    history.push('/game')
+                }
+            })
+        }
+    }, [socket]);
+    
+
     const handleSubmit =(e)=>{
         e.preventDefault()
         if (gameoption==='online'){
-
+            if (socket==null){
+                let randomId=Math.floor(Math.random()*(10**9))
+                setPlayerID(randomId)
+                setSocket(initializeWebSocket(randomId,playername))
+            }
+            
         }else if (gameoption==='computer'){
             setRedirected(true)
             history.push('/game')
+            
+            if (socket){
+                socket.send(JSON.stringify({clientId:playerID, subject:'playingwithcomputer'}))
+            }
+            
         }
     }
     return ( 
         <div className="containorhome">
-            <div></div>
+            <div>
+            </div>
             <div className="homepage">
+                    <div className="resultmessege">
+                        {(result=='noavailableplayes')&&
+                        (<div
+                        style={{
+                            textAlign: 'center',
+                            height: '40px',
+                            width:'350px',
+                            backgroundColor: 'rgba(203, 203, 255, 0.575)'
+                        }}
+                        >
+                            Currently, there are no available. Please wait for others to join or enjoy a game against computer!
+                         </div>)
+                        }
+                    </div>
                 <form className="homepageform" onSubmit={handleSubmit}>
-                    <div className="row transparentfill">player name:</div>
                     <div className="row"><input className='js-input' type="text" required placeholder="choose player name" 
                      value={playername} onChange={(e)=>setPlayername(e.target.value)}/></div>
                     <div className="row labeloption"><label>

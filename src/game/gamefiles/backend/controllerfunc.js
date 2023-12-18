@@ -3,6 +3,7 @@ export function getresult(board,chosenspot,ships){
     let shipnum=board[chosenspot[0]][chosenspot[1]][0]
     let ship=ships[shipnum-1]
     ship.howmanydown+=1
+    
     if (ship.howmanydown==ship.length){
       ship.sunk=true
       return({newshipss:ships,result:ship,news:'sunk'})
