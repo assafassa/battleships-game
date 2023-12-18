@@ -79,7 +79,13 @@ const Opponentsquare = ({beforeGame,player,choosequare,board, x, y, ships}) => {
             ></img>
         </div>
         }
-        {(!isship)&&isexplotion&&<div>
+        {(!isship)&&isexplotion&&<div
+            style={{
+                height:'35px',
+                width:'35px',
+                backgroundColor:'rgba(94, 76, 252, 0.4)'
+            }}
+            >
             <img src={`${process.env.PUBLIC_URL}/images/expolotions/x.png` }
             style={{
                 height:'40px',

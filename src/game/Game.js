@@ -4,6 +4,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import './gamefiles/game.css'
 import Headboard from './components/Headboard';
+import News from './components/News'
 import { aopopnentBoard, aopponentShips,aboard,aships} from './gamefiles/frontend/gameState';
 import{useReactiveGame} from './gamefiles/frontend/reactiveGame'
 import{readytoplay,takechosenspot,getoponchosenspot} from './gamefiles/backend/controler'
@@ -16,6 +17,7 @@ const Game = ({gameoption,playername}) => {
   const [beforeGame, setBeforeGame] = useState(true);
   const [chosenSpot, setChosenSpot] = useState('999');
   const [newsboard, setnewsboard] = useState('beforeGame');
+  
   const{
     aplaceShip,
     achoosequare,
@@ -25,7 +27,7 @@ const Game = ({gameoption,playername}) => {
     // This code runs whenever the 'newsboard' state changes
     console.log('newsboard has changed:', newsboard);
   }, [newsboard]);
-
+  const opopnentname='opponent'
   const placeShip=(shipnum,photonum,row, col,action)=>{
     let result=aplaceShip(beforeGame,board,ships,shipnum,photonum,row, col,action)
     if (result==false){
@@ -62,8 +64,7 @@ const Game = ({gameoption,playername}) => {
       setOpponentShips([...newships])
       //add value to see what happend
       if (isgameover=='gameover'){
-        setnewsboard('you won')
-        console.log('you won')
+        setnewsboard('won')
         return('')
       }else{
         setnewsboard('you '+news)
@@ -73,10 +74,10 @@ const Game = ({gameoption,playername}) => {
       setShips([...newresult.newships])
       //add value to see what happend
       if (newresult.isgameover=='gameover'){
-        setnewsboard('you lost')
+        setnewsboard('lost')
         return('')
       }else{
-        setnewsboard('you got '+newresult.news)
+        setnewsboard('opponent '+newresult.news)
       }
       setTimeout(() => {
         setOpopnentBoard([...newresult.randomspotboard])
@@ -111,10 +112,15 @@ const Game = ({gameoption,playername}) => {
         </div>
         <div className='middle'>
           <button className='js-button readybutton' onClick={readybuttonhandler}>Ready</button>
+          <div className='newsbord'>
+            <News news={newsboard}/>
+
+          </div>
           <div className='messegebord'>
             messeage 
 
           </div>
+          
         </div>
         <div className="opponent"
         style={{

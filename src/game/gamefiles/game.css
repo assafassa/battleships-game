@@ -17,17 +17,29 @@
     text-align: center;
     align-content: center;
     display: block;
-    width:200px;
+    width:270px;
     height: 500px;
     
 }
 .messegebord{
     color: rgb(195, 183, 255);
     font-size: 40px;
-    width:200px;
-    height: 300px;
-    background-color: rgba(0, 0, 0, 0.56) ;
-    margin-top: 60px;
+    width:264px;
+    height: 180px;
+    background-color: rgba(189, 183, 255, 0.031) ;
+    border: '2px';
+    border-style: solid;
+    border-color:rgba(0, 0, 0, 0.358) ;
+    margin-top: 0px;
+}
+.newsbord{
+    
+    color: rgb(195, 183, 255);
+    font-size: 40px;
+    width:270px;
+    height: 220px;
+    background-color: rgba(0, 0, 0, 0.697) ;
+    margin-top: 20px;
 }
 .js-button{
     height: 40px;
@@ -43,7 +55,35 @@
     
 
 }
+.js-button:hover{
+    background-color: rgba(146, 148, 190, 0.343);
+    font-weight: normal;
+    
+}
 .js-button:active{
     background-color: rgb(39, 50, 255);
     color: rgb(255, 172, 172);
+}
+.Headerpar{
+    margin-top: 10px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.685);
+}
+.par{
+    margin-left:15px ;
+    width:250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 30px;
+}
+.gap{
+    height: 3px;
+}
+.deepgap{
+    height: 20px;
+}
+.newsresult{
+    font-size: 25px;
 }
