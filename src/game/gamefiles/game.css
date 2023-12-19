@@ -6,7 +6,7 @@
     font-size: 23px;
     margin-left: 20px;
     margin-right: 20px;
-    color: blue;
+    color: rgb(135, 135, 135);
 }
 
 .littleboard{
@@ -86,4 +86,34 @@
 }
 .newsresult{
     font-size: 25px;
+}
+.inputchat::placeholder{
+    color: black;
+}
+.sendbutton{
+    border:none;
+    color:blue;
+    font-family:inherit;
+
+}
+.sendbutton:hover{
+    background-color: rgba(240, 248, 255, 0.712);
+}
+.sendbutton:active{
+    background-color: rgba(0, 0, 255, 0.875);
+    color: rgb(234, 243, 252);
+}
+.yassqueen{
+    background-color: rgba(102, 155, 101, 0.619);
+}
+.scrollable-div::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+    background-color: rgba(73, 73, 73, 0.702);
+}
+
+.scrollable-div::-webkit-scrollbar-track {
+    background-color: transparent;
 }

@@ -26,7 +26,7 @@ export const aopponentShips=[
     id: 2,
     type: 'ship2',
     length:4,
-    howmanydown:3,
+    howmanydown:0,
     images: ['ship2/1.png', 'ship2/2.png', 'ship2/3.png', 'ship2/4.png'],
     sunk:false
   },
@@ -86,7 +86,7 @@ export const aships=[
     id: 3,
     type: 'ship3',
     length:3,
-    howmanydown:3,
+    howmanydown:0,
     isHorizontal: true,
     images: ['ship3/1.png', 'ship3/2.png', 'ship3/3.png'],
     position: ['01', '02', '03'],

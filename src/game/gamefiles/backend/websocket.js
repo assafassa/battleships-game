@@ -6,9 +6,9 @@ export const initializeWebSocket = (clientId,clientname) => {
         // Create a new WebSocket instance if not exists or closed
         socket = new WebSocket(`ws://localhost:8080?clientId=${clientId}&username=${clientname}`);
         return(socket)
-}
+    }
 
-return socket;
+    return socket;
 };
 
 export const closeWebSocket = () => {
@@ -17,8 +17,15 @@ export const closeWebSocket = () => {
     }
 };
 
-export const sendWebSocketMessage = (message) => {
+export const sendWebSocketMessage = (subject, readystate,playerID,body) => {
     if (socket && socket.readyState === WebSocket.OPEN) {
-        socket.send(message);
+        let message={
+            subject:subject,
+            ready:readystate,
+            clientId:playerID,
+            body:body
+        }
+        let messeagesrti=JSON.stringify(message)
+        socket.send(messeagesrti);
     }
 };

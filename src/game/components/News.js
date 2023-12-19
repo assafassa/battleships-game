@@ -1,25 +1,34 @@
 const News = ({news}) => {
-    let newss = news.replace(/\s/g, '')
-    let isbeforeGame=(newss=='beforeGame')
-    let ischoosespot=(newss=='chooseSpot')
-    let isdifferent=(!isbeforeGame&&!ischoosespot)
-    let randomnumber=''
-    let isgif=true
-    let issound=true
+    let newss
+    let isbeforeGame
+    let ischoosespot
+    let isdifferent
+    let randomnumber
+    let isgif
+    let issound
+    if (news){
+        newss = news.replace(/\s/g, '')
+        isbeforeGame=(newss=='beforeGame')
+        ischoosespot=(newss=='chooseSpot')
+        isdifferent=(!isbeforeGame&&!ischoosespot)
+        randomnumber=''
+        isgif=true
+        issound=true
 
-    if ((newss[0]=='y' || newss[0]=='o' )&& newss!='yousunk'){
-        isgif=false
-        let gifrandomnumber=Math.floor(Math.random()*2)+1
-        if (gifrandomnumber==2){
-            randomnumber=Math.floor(Math.random()*4)+1
-            isgif=true
+        if ((newss[0]=='y' || newss[0]=='o' )&& newss!='yousunk'){
+            isgif=false
+            let gifrandomnumber=Math.floor(Math.random()*2)+1
+            if (gifrandomnumber==2){
+                randomnumber=Math.floor(Math.random()*4)+1
+                isgif=true
+            }
+        }
+        if (news[0]=='w'){
+            randomnumber=Math.floor(Math.random()*2)+1
         }
     }
-    if (news[0]=='w'){
-        randomnumber=Math.floor(Math.random()*2)+1
-    }
     return ( <div>
-        {isbeforeGame&& (
+        {news&&isbeforeGame&& (
         <div
         style={{ 
             width:'270px',
@@ -45,7 +54,7 @@ const News = ({news}) => {
             </div>
         </div>
         )}
-        {ischoosespot&&(
+        {news&&ischoosespot&&(
         <div
         style={{ 
             width:'270px',
@@ -66,7 +75,7 @@ const News = ({news}) => {
             
         </div>
         )}
-        {isdifferent&&isgif&&(
+        {news&&isdifferent&&isgif&&(
         <div>
             <div className="deepgap"></div>
             <img src={`${process.env.PUBLIC_URL}/images/newsgifs/${newss}${randomnumber}.gif`} 
@@ -80,7 +89,7 @@ const News = ({news}) => {
             )}
         </div>
         )}
-        {isdifferent&&(!isgif)&&(
+        {news&&isdifferent&&(!isgif)&&(
         <div>
             <div className="deepgap"></div>
             <div className="newresult">

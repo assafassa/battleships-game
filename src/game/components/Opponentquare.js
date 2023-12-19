@@ -9,7 +9,7 @@ const Opponentsquare = ({beforeGame,player,choosequare,board, x, y, ships}) => {
     let explotionlocation
     let cursoricon='auto'
     let ischosensquare='rgba(1, 1, 1, 0.4)'
-    if(!beforeGame){
+    if(beforeGame!=true){
         if (board[x][y][0]!=0){
             isship=true
             if(board[x][y][2]==7){

@@ -10,7 +10,7 @@ const Home = ({playerID, setPlayerID, setopponent,setRedirected, setGameoption, 
     const history=useHistory()
     useEffect(() => {
         if (socket){
-            socket.addEventListener('message', (e) => {
+            const handefunction=(e) => {
                 
                 let receivedData = JSON.parse(e.data)
                 
@@ -21,8 +21,10 @@ const Home = ({playerID, setPlayerID, setopponent,setRedirected, setGameoption, 
                     setopponent(receivedData.message)
                     setRedirected(true)
                     history.push('/game')
+                    socket.removeEventListener('message' ,handefunction)
                 }
-            })
+            }
+            socket.addEventListener('message' ,handefunction)
         }
     }, [socket]);
     

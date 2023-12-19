@@ -7,7 +7,7 @@ import { useState } from "react";
 
 function App() {
   const [isRedirected, setRedirected] = useState(false);
-  const [playername, setPlayername]=useState(null);
+  const [playername, setPlayername]=useState('');
   const [playerID, setPlayerID]=useState(null);
   const [gameoption,setGameoption]=useState('computer');
   const [opponent,setopponent]=useState(null);
