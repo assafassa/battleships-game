@@ -6,13 +6,14 @@ import './gamefiles/game.css'
 import Headboard from './components/Headboard';
 import News from './components/News'
 import Livechat from './components/Livechat';
+import Modal from './components/Modals/Modal'
 import { aopopnentBoard, aopponentShips,aboard,aships} from './gamefiles/frontend/gameState';
 import{useReactiveGame} from './gamefiles/frontend/reactiveGame'
 import{readytoplay,takechosenspot,getoponchosenspot,comgetoponchosenspot,comtakechosenspot} from './gamefiles/backend/controler'
 import _, { set } from 'lodash';
 import {sendWebSocketMessage,socket} from './gamefiles/backend/websocket'
 
-const Game = ({playerID, opponent, gameoption,playername}) => {
+const Game = ({setGameoption,setopponent,playerID, opponent, gameoption,playername}) => {
   ////use states
   const [opopnentBoard, setOpopnentBoard] = useState(aopopnentBoard)
   const [opponentShips, setOpponentShips] = useState(aopponentShips)
@@ -28,13 +29,13 @@ const Game = ({playerID, opponent, gameoption,playername}) => {
   const [isgameoption,setIsGameOption]=useState(null)
   const [isopponready,setIsOpponReady]=useState(false)
   const chatContainerRef = useRef(null);
-
-
+  console.log(beforeGame)
   ///use effect
   useEffect(() => {
     if (socket&&isgameoption){
         const sockethandle= (e) => {
             let receivedData = JSON.parse(e.data)
+            console.log(receivedData)
             if (receivedData.subject=='livechat'){
               if (receivedData.ready){
                 setIsOpponReady(true)
@@ -276,9 +277,9 @@ const Game = ({playerID, opponent, gameoption,playername}) => {
           </div>
           <div className='messegebord'>
             <Livechat playerID={playerID} gameoption={gameoption}
-            playername={playername} opponent={opponent} 
-            chatmessages={chatmessages} sendchathandle={sendchathandle}
-            chatContainerRef={chatContainerRef}/>
+              playername={playername} opponent={opponent} 
+              chatmessages={chatmessages} sendchathandle={sendchathandle}
+              chatContainerRef={chatContainerRef}/>
 
           </div>
           
@@ -294,12 +295,15 @@ const Game = ({playerID, opponent, gameoption,playername}) => {
             <Headboard ships={opponentShips}/>
           </div>
           <div className="boarddisplay">
-            <Board player={'opopnent'} board={opopnentBoard} actfunction={choosequare} ships={opponentShips}beforeGame={beforeGame} />
+          <Board player={'opopnent'} board={opopnentBoard} actfunction={choosequare} ships={opponentShips}beforeGame={beforeGame} />
           </div>
           
           
         </div>
         
+    </div>
+    <div className="overflow">
+      <Modal gameoption={gameoption} opponent={opponent} beforeGame={beforeGame}/>
     </div>
   </DndProvider>
   )

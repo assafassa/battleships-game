@@ -1,4 +1,6 @@
-const News = ({news}) => {
+import React from 'react';
+
+const News = React.memo(({news}) => {
     let newss
     let isbeforeGame
     let ischoosespot
@@ -98,6 +100,6 @@ const News = ({news}) => {
         </div>
         )}
     </div> );
-}
+})
  
 export default News;

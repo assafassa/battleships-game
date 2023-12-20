@@ -8,8 +8,8 @@
 }
 .homepage{
     background-image: url(../../public/home.png);
-    background-size: cover; 
-    background-repeat: no-repeat; 
+    background-size:cover; 
+    background-repeat:space; 
     background-position: center center;
     width:480px;
     height:350px;
@@ -62,5 +62,7 @@
     width:350px;
     font-size: 18px;
     color:rgb(215, 6, 6);
+    
+
 }
 

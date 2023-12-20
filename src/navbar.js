@@ -1,13 +1,31 @@
-import {Link} from 'react-router-dom';
-const Navbar = () => {
+import{socket,sendWebSocketMessage,closeWebSocket}from './game/gamefiles/backend/websocket'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
+const Navbar = ({playerID,setsound,opponent}) => {
+    const history=useHistory()
     return ( 
         <nav className="navbar">
             <div></div>
             
             <div className="Header">Battle Ships</div> 
             <div className="controls">
-                <div className="sound">Sound</div>
-                <Link to='/' className="exit">Exit</Link>
+                <div className="sound" >sound</div>
+                <div className='exit'
+                onClick={()=>{
+                    history.push('/')
+                    if (socket){
+                        if(opponent){
+                            sendWebSocketMessage('exit', false,playerID,{})
+                        }
+                        closeWebSocket(playerID)
+                    }
+                }}
+                style={{
+                    cursor:'pointer',
+                }}
+                >Exit</div>
+                
+                
             </div> 
         </nav>
     );

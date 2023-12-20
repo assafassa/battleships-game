@@ -56,7 +56,7 @@ const Ship = ({beforeGame, player,board,placeShip, x, y, ships}) => {
         filter:darkmode,
         }}
         onDoubleClick={() => {
-          if (beforeGame){
+          if (beforeGame==true){
             placeShip(shipnum,photonum,x,y,'turn')
           }
         }}

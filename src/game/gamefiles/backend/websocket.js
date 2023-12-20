@@ -11,9 +11,11 @@ export const initializeWebSocket = (clientId,clientname) => {
     return socket;
 };
 
-export const closeWebSocket = () => {
+export const closeWebSocket = (playerID) => {
     if (socket && socket.readyState === WebSocket.OPEN) {
+        sendWebSocketMessage('close',false,playerID,{})
         socket.close();
+        socket=null
     }
 };
 

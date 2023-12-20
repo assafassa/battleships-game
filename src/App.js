@@ -12,11 +12,11 @@ function App() {
   const [gameoption,setGameoption]=useState('computer');
   const [opponent,setopponent]=useState(null);
   ////dont forget sound
-  const [sound,setsound]=useState('');
+  const [sound,setsound]=useState(true);
   return (
     <Router>
       <div className="App">
-        <Navbar playerID={playerID}/>
+        <Navbar playerID={playerID} setsound={setsound}opponent={opponent}/>
         <div className="content">
           <Switch>
             <Route exact path="/">
@@ -26,7 +26,7 @@ function App() {
               />
             </Route>
             <Route path="/game">
-              <Game opponent={opponent}gameoption={gameoption} playername={playername} playerID={playerID}/>
+              <Game setGameoption={setGameoption}setopponent={setopponent}opponent={opponent}gameoption={gameoption} playername={playername} playerID={playerID}/>
             </Route>
           </Switch>
         </div>
