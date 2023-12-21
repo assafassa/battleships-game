@@ -67,7 +67,7 @@ export function checkifgameover(ships){
       isgameover+=1
     }
   })
-  if (isgameover==1){
+  if (isgameover==4){
     ///add reset to my computer
     generatenewgame()
     return('gameover')
