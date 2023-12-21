@@ -13,7 +13,7 @@ import{readytoplay,takechosenspot,getoponchosenspot,comgetoponchosenspot,comtake
 import _, { set } from 'lodash';
 import {sendWebSocketMessage,socket} from './gamefiles/backend/websocket'
 
-const Game = ({setGameoption,setopponent,playerID, opponent, gameoption,playername}) => {
+const Game = ({setopponent,playerID, opponent, gameoption,playername}) => {
   ////use states
   const [opopnentBoard, setOpopnentBoard] = useState(aopopnentBoard)
   const [opponentShips, setOpponentShips] = useState(aopponentShips)
@@ -28,8 +28,8 @@ const Game = ({setGameoption,setopponent,playerID, opponent, gameoption,playerna
   const[onemessage,setOneMessage]=useState(null)
   const [isgameoption,setIsGameOption]=useState(null)
   const [isopponready,setIsOpponReady]=useState(false)
+  const [restartgame,setrestartgame]=useState(false)
   const chatContainerRef = useRef(null);
-  console.log(beforeGame)
   ///use effect
   useEffect(() => {
     if (socket&&isgameoption){
@@ -46,12 +46,34 @@ const Game = ({setGameoption,setopponent,playerID, opponent, gameoption,playerna
               setOpponChosenSpot(receivedData.body.chosenSpot)
             }else if(receivedData.subject=='result'){
               setOpponResult(receivedData.body)
+            }else if(receivedData.subject=='exit'){
+              setBeforeGame('gameover left')
+            }else if(receivedData.subject=='startnewgame'){
+              setopponent(receivedData.message)
+              setIsGameOption(receivedData.message)
+            }else if (receivedData.subject=='playagain'){
+              setBeforeGame('gameover playagain')
+            }else if (receivedData.subject=='restartgame'){
+              setrestartgame(true)
             }
         }
         socket.removeEventListener('message',sockethandle)
         socket.addEventListener('message',sockethandle)
     }
   }, [isgameoption]);
+  useEffect(() => {
+    if (opponent){
+      intiializedata()
+      
+    }
+  }, [opponent]);
+
+  useEffect(() => {
+    if (restartgame){
+      intiializedata()
+      setrestartgame(false)
+    }
+  }, [restartgame]);
   useEffect(() => {
     if (socket&&isgameoption&&onemessage){
         setChatmessage([...chatmessages,onemessage])
@@ -65,13 +87,14 @@ const Game = ({setGameoption,setopponent,playerID, opponent, gameoption,playerna
   }, [chatmessages]);
 
   useEffect(() => {
-    if (beforeGame=='wait'){
+    if (beforeGame=='wait'&&(isopponready)){
                   
       setBeforeGame(false)
       readytoplay()
       setnewsboard('chooseSpot')
-      opopnentBoard[0][0]='008'
-      setOpopnentBoard([...opopnentBoard])
+      let opponentboardcopy=_.cloneDeep(opopnentBoard)
+      opponentboardcopy[0][0]='008'
+      setOpopnentBoard([...opponentboardcopy])
       setChosenSpot('00')
     }
   }, [isopponready]);
@@ -111,18 +134,35 @@ const Game = ({setGameoption,setopponent,playerID, opponent, gameoption,playerna
 
 
 
-
+  //intiializedata
+  const intiializedata=()=>{
+    setOpopnentBoard([...aopopnentBoard])
+    setOpponentShips([...aopponentShips])
+    setBoard([...aboard])
+    setShips(aships)
+    setBeforeGame(true)
+    setChosenSpot('999')
+    setOpponChosenSpot(null)
+    setOpponResult(null)
+    setnewsboard('beforeGame')
+    setIsOpponReady(false)
+    setChatmessage([])
+    chatContainerRef.current.scrollTop=0
+    
+    
+  }
   ///client functions
   const placeShip=(shipnum,photonum,row, col,action)=>{
-    let result=aplaceShip(beforeGame,board,ships,shipnum,photonum,row, col,action)
-    if (result==false){
-      return(false)
-    }else{
-      let {newBoard,newShips}=result
-      setBoard(newBoard)
-      setShips(newShips)
+    if (beforeGame==true){
+      let result=aplaceShip(beforeGame,board,ships,shipnum,photonum,row, col,action)
+      if (result==false){
+        return(false)
+      }else{
+        let {newBoard,newShips}=result
+        setBoard(newBoard)
+        setShips(newShips)
+      }
     }
-    
   }
   const choosequare=(row,col)=>{
     let result=achoosequare(chosenSpot,opopnentBoard,row,col)
@@ -178,6 +218,9 @@ const Game = ({setGameoption,setopponent,playerID, opponent, gameoption,playerna
       //add value to see what happend
       if (isgameover=='gameover'){
         setnewsboard('won')
+        setTimeout(() => {
+          setBeforeGame('gameover')
+        }, 5000);
         return(true)
       }else{
         setnewsboard('you '+news)
@@ -193,6 +236,9 @@ const Game = ({setGameoption,setopponent,playerID, opponent, gameoption,playerna
     //add value to see what happend
     if (newresult.isgameover=='gameover'){
       setnewsboard('lost')
+      setTimeout(() => {
+        setBeforeGame('gameover')
+      }, 5000);
       return('')
     }else{
       setnewsboard('opponent '+newresult.news)
@@ -303,7 +349,9 @@ const Game = ({setGameoption,setopponent,playerID, opponent, gameoption,playerna
         
     </div>
     <div className="overflow">
-      <Modal gameoption={gameoption} opponent={opponent} beforeGame={beforeGame}/>
+      <Modal gameoption={gameoption} opponent={opponent} beforeGame={beforeGame}
+      playerID={playerID} setrestartgame={setrestartgame} setBeforeGame={setBeforeGame}
+      />
     </div>
   </DndProvider>
   )

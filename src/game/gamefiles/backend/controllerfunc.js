@@ -1,3 +1,4 @@
+import{generatenewgame} from './mycomputer'
 export function getresult(board,chosenspot,ships){
   if (board[chosenspot[0]][chosenspot[1]]!='00'){
     let shipnum=board[chosenspot[0]][chosenspot[1]][0]
@@ -66,7 +67,9 @@ export function checkifgameover(ships){
       isgameover+=1
     }
   })
-  if (isgameover==2){
+  if (isgameover==1){
+    ///add reset to my computer
+    generatenewgame()
     return('gameover')
   }else{
     return('no')

@@ -26,7 +26,7 @@ function App() {
               />
             </Route>
             <Route path="/game">
-              <Game setGameoption={setGameoption}setopponent={setopponent}opponent={opponent}gameoption={gameoption} playername={playername} playerID={playerID}/>
+              <Game setPlayerID={setPlayerID} setGameoption={setGameoption}setopponent={setopponent}opponent={opponent}gameoption={gameoption} playername={playername} playerID={playerID}/>
             </Route>
           </Switch>
         </div>

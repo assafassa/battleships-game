@@ -1,6 +1,6 @@
 
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { initializeWebSocket } from "./game/gamefiles/backend/websocket";
+import { initializeWebSocket ,closeWebSocket} from "./game/gamefiles/backend/websocket";
 import { useState ,useEffect } from "react";
 
 
@@ -43,7 +43,7 @@ const Home = ({playerID, setPlayerID, setopponent,setRedirected, setGameoption, 
             history.push('/game')
             
             if (socket){
-                socket.send(JSON.stringify({clientId:playerID, subject:'playingwithcomputer'}))
+                closeWebSocket(playerID)
             }
             
         }

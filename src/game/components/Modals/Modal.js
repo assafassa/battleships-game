@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./Modal.css";
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { closeWebSocket,sendWebSocketMessage,initializeWebSocket,socket } from "../../gamefiles/backend/websocket";
 
 
-
-const Modal = ({gameoption,opponent,beforeGame}) =>{
-  console.log(beforeGame)
+const Modal = ({gameoption,opponent,beforeGame,playerID,setrestartgame,setBeforeGame,}) =>{
+  const history=useHistory()
   let isbeforeGamelist
   let stategame
   let isoppon
@@ -16,8 +17,8 @@ const Modal = ({gameoption,opponent,beforeGame}) =>{
     isbeforeGamelist=beforeGame.split(' ');
     stategame=isbeforeGamelist[0]
     isoppon=isbeforeGamelist[1]
-    isgameoption='computer'
-    isopponent='natasha'
+    isgameoption=gameoption
+    isopponent=opponent
     wholeft=isopponent
     
   }
@@ -40,11 +41,40 @@ const Modal = ({gameoption,opponent,beforeGame}) =>{
           <div className="modal-content">
             <div className="modalheader"> Gameover</div>
             <div className="buttonlayout">
-              <button className="modal-button gameover"> to play again with {isopponent}</button>
-              <button className="modal-button gameover"> to play again with another player</button>
-              <button className="modal-button gameover"> to go back home</button>
+              <button className="modal-button gameover"
+              onClick={()=>{
+                if(isoppon=='playagain'){
+                  sendWebSocketMessage('restartgame', false,playerID,{})
+                  setrestartgame(true)
+                }else if (isoppon!='watingforpalyagain'){
+                  sendWebSocketMessage('playagain', false,playerID,{})
+                  setBeforeGame('gameover watingforpalyagain')
+                }
+              }}
+              > to play again with {isopponent}</button>
+              <button className="modal-button gameover"
+              onClick={()=>{
+                if (isoppon!='gameover watingfornewplayer'){
+                  sendWebSocketMessage('exit', false,playerID,{})
+                  setBeforeGame('gameover watingfornewplayer')
+                }
+              }
+              }
+              > to play again with another player</button>
+              <button className="modal-button gameover"
+              onClick={
+                ()=>{
+                  if (isoppon!='gameover watingfornewplayer'){
+                    sendWebSocketMessage('exit', false,playerID,{})
+                  }
+                  closeWebSocket(playerID)
+                  history.push('/')
+                }
+              }> to go back home</button>
             </div>
-            {(isoppon=='playagain')&&(<div className="messagebox">{isopponent} pressed they want to play again!</div>)}
+            {(isoppon=='playagain')&&(<div className="messageboxgreen">{isopponent} pressed they want to play again!</div>)}
+            {(isoppon=='watingforpalyagain')&&(<div className="messagebox">waiting for {isopponent} response </div>)}
+            {(isoppon=='watingfornewplayer')&&(<div className="messagebox">waiting for a new player</div>)}
           </div>
         </div>
       )}
@@ -55,8 +85,13 @@ const Modal = ({gameoption,opponent,beforeGame}) =>{
           <div className="overlay"></div>
           <div className="modal-content">
             <div className="modalheader"> {wholeft} left the game</div>
-            <p className="modal-text"> You can wait for a new game with another online player <bd></bd>or press the button to return to the home page.</p>
-            <button className="modal-button">Go to Home</button>
+            <p className="modal-text"> You can wait for a new game with another online player <br></br>or press the button to return to the home page.</p>
+            <button className="modal-button"onClick={
+              ()=>{
+                closeWebSocket(playerID)
+                history.push('/')
+              }
+            }>Go to Home</button>
             
           </div>
         </div>
@@ -69,11 +104,20 @@ const Modal = ({gameoption,opponent,beforeGame}) =>{
           <div className="modal-content">
             <div className="modalheader"> Gameover</div>
             <div className="buttonlayout">
-              <button className="modal-button gameover"> to play again with tour computer</button>
-              <button className="modal-button gameover"> to play with another player</button>
-              <button className="modal-button gameover"> to go back home</button>
+              <button className="modal-button gameover"
+              onClick={()=>{
+                setrestartgame(true)
+              }}
+              > to play again with tour computer</button>
+              
+              <button className="modal-button gameover"
+              onClick={()=>{
+                closeWebSocket(playerID)
+                history.push('/')
+              }
+            }
+              > to go back home</button>
             </div>
-            <div className="messagebox"></div>
           </div>
         </div>
       )}

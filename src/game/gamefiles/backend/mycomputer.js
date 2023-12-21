@@ -11,7 +11,8 @@ const generatedboard=[
     ['00', '00', '00', '00', '00', '23', '00', '00', '00', '00'],
     ['00', '00', '00', '00', '00', '24', '00', '00', '00', '00']
 ];
-let generatedShips=[
+
+const creategeneratedShips=()=>{return([
     {
       id: 1,
       type: 'ship1',
@@ -53,9 +54,11 @@ let generatedShips=[
       sunk:false
     },
     // ... add more ships
-];
-//create a function to create the ships location
-let myboard=[
+])};
+let generatedShips=creategeneratedShips()
+//create a function to create the ships 
+
+const createmyboard=()=>{return([
   ['00', '00', '00', '00', '00', '00', '00', '00', '00', '00'],
     ['00', '00', '00', '00', '00', '00', '00', '00', '00', '00'],
     ['00', '00', '00', '00', '00', '00', '00', '00', '00', '00'],
@@ -67,8 +70,10 @@ let myboard=[
     ['00', '00', '00', '00', '00', '00', '00', '00', '00', '00'],
     ['00', '00', '00', '00', '00', '00', '00', '00', '00', '00'],
     
-];
-let myships=[
+])};
+let myboard=createmyboard()
+
+const createmyships=()=>{return([
     {
       id: 1,
       type: 'ship1',
@@ -106,9 +111,12 @@ let myships=[
       sunk:false
     },
     // ... add more ships
-];
-
+])};
+let myships=createmyships()
 export const chooserandomfromboard =async()=>{
+  console.log('myboard',myboard)
+  console.log('myships',myships)
+  console.log('genships',generatedShips)
   //right now it done randomly
   let row=Math.floor(Math.random()*10)
   let col=Math.floor(Math.random()*10)
@@ -125,4 +133,9 @@ export function computergetresult(chosenSpot){
   let {newshipss,result,news}=getresult(generatedboard,chosenSpot,generatedShips)
   generatedShips=newshipss
   return({result,news})
+}
+export function generatenewgame(){
+  myboard=createmyboard()
+  myships=createmyships()
+  generatedShips=creategeneratedShips()
 }
