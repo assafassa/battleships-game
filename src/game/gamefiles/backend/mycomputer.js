@@ -114,10 +114,7 @@ const createmyships=()=>{return([
 ])};
 let myships=createmyships()
 export const chooserandomfromboard =async()=>{
-  console.log('myboard',myboard)
-  console.log('myships',myships)
-  console.log('genships',generatedShips)
-  //right now it done randomly
+ //right now it done randomly
   let row=Math.floor(Math.random()*10)
   let col=Math.floor(Math.random()*10)
   while (myboard[row][col]!=='00'){

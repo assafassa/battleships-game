@@ -4,7 +4,8 @@ export let socket = null;
 export const initializeWebSocket = (clientId,clientname) => {
     if (!socket || socket.readyState === WebSocket.CLOSED) {
         // Create a new WebSocket instance if not exists or closed
-        socket = new WebSocket(`ws://localhost:8080?clientId=${clientId}&username=${clientname}`);
+        //socket = new WebSocket(`ws://localhost:8080?clientId=${clientId}&username=${clientname}`);
+        socket = new WebSocket(`wss://battleshipsserver.onrender.com?clientId=${clientId}&username=${clientname}`);
         return(socket)
     }
 

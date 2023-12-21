@@ -30,13 +30,13 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => 
   const [isgameoption,setIsGameOption]=useState(null)
   const [isopponready,setIsOpponReady]=useState(false)
   const [restartgame,setrestartgame]=useState(false)
+  const [timer,setTimer]=useState({value:'30',turned:true})
   const chatContainerRef = useRef(null);
   ///use effect
   useEffect(() => {
     if (socket&&isgameoption){
         const sockethandle= (e) => {
             let receivedData = JSON.parse(e.data)
-            console.log(receivedData)
             if (receivedData.subject=='livechat'){
               if (receivedData.ready){
                 setIsOpponReady(true)
@@ -45,12 +45,16 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => 
             }
             else if(receivedData.subject=='chosenspot'){
               setOpponChosenSpot(receivedData.body.chosenSpot)
+
             }else if(receivedData.subject=='result'){
               setOpponResult(receivedData.body)
             }else if(receivedData.subject=='exit'){
               setBeforeGame('gameover left')
             }else if(receivedData.subject=='startnewgame'){
-              setopponent(receivedData.message)
+              setopponent(null)
+              setTimeout(() => {
+                setopponent(receivedData.message)
+              }, 100);
               setIsGameOption(receivedData.message)
             }else if (receivedData.subject=='playagain'){
               setBeforeGame('gameover playagain')
@@ -68,7 +72,24 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => 
       
     }
   }, [opponent]);
+  useEffect(() => {
+    if (timer.turned && Number(timer.value) > 0) {
+      const timeoutID = setTimeout(() => {
+        setTimer((prevTimer) => ({ value: (Number(prevTimer.value) - 1).toString().padStart(2, '0'), turned: true }));
+      }, 1000);
 
+      return () => clearTimeout(timeoutID); // Cleanup timeout on component unmount or when turned becomes false
+    } else if (timer.value == '00' &&timer.turned) {
+      setTimer((prevTimer) => ({ value: prevTimer.value, turned: false }));
+      
+      if (gameoption=='computer'){
+        comreadybuttonhandler()
+      }else if (gameoption=='online'){
+        onlinereadybuttonhandler()
+      }
+      
+    }
+  }, [timer.turned, timer.value]);
   useEffect(() => {
     if (restartgame){
       intiializedata()
@@ -93,6 +114,7 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => 
       setBeforeGame(false)
       readytoplay()
       setnewsboard('chooseSpot')
+      setTimer({value:'10',turned:true})
       let opponentboardcopy=_.cloneDeep(opopnentBoard)
       opponentboardcopy[0][0]='008'
       setOpopnentBoard([...opponentboardcopy])
@@ -148,6 +170,7 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => 
     setnewsboard('beforeGame')
     setIsOpponReady(false)
     setChatmessage([])
+    setTimer({value:'30',turned:true})
     chatContainerRef.current.scrollTop=0
     
     
@@ -184,10 +207,16 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => 
       setBeforeGame(false)
       readytoplay()
       setnewsboard('chooseSpot')
+      setTimer({value:'10',turned:true})
+      let opponentboardcopy=_.cloneDeep(opopnentBoard)
+      opponentboardcopy[0][0]='008'
+      setOpopnentBoard([...opponentboardcopy])
+      setChosenSpot('00')
     }else if (chosenSpot!='998'){
       let thechosenSpot=_.cloneDeep(chosenSpot)
       setChosenSpot('998')
       setnewsboard('shager')
+      setTimer({value:'00',turned:false})
       let result=await comtakechosenspot(thechosenSpot,opopnentBoard,opponentShips)
       let{newboard,newships,isgameover,news}=result
       let isstop=mymove(result)
@@ -203,10 +232,12 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => 
     if (beforeGame==true){
       setBeforeGame('wait')
       sendchathandle(`${playername} ready`,'rgba(102, 155, 101, 0.619)','rgba(22, 64, 21, 0.619)',true)
+      setTimer({value:'00',turned:false})
     }else if (beforeGame==false &&chosenSpot!='998'){
       let thechosenSpot=_.cloneDeep(chosenSpot)
       setChosenSpot('998')
       setnewsboard('shager')
+      setTimer({value:'00',turned:false})
       sendWebSocketMessage('chosenspot', false,playerID,{chosenSpot:thechosenSpot})
 
     }
@@ -250,6 +281,7 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => 
         setChosenSpot(newresult.newspot)
         setnewsboard('chooseSpot')
         setOpopnentBoard([...newresult.randomspotboard])
+        setTimer({value:'10',turned:true})
       }, 5000);
     }
   }
@@ -318,9 +350,7 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => 
         </div>
         <div className='middle'>
           <div className="headmiddle">
-            {(gameoption=='computer')&&(
-              <Timer timer={{value:'00'}}/>
-            )}
+            <Timer timer={timer}/>
             <button className='js-button readybutton' onClick={readybuttonhandler}>Ready</button>
             
           </div>

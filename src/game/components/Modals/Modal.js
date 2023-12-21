@@ -54,7 +54,7 @@ const Modal = ({gameoption,opponent,beforeGame,playerID,setrestartgame,setBefore
               > to play again with {isopponent}</button>
               <button className="modal-button gameover"
               onClick={()=>{
-                if (isoppon!='gameover watingfornewplayer'){
+                if (isoppon!='watingfornewplayer'){
                   sendWebSocketMessage('exit', false,playerID,{})
                   setBeforeGame('gameover watingfornewplayer')
                 }
@@ -64,7 +64,7 @@ const Modal = ({gameoption,opponent,beforeGame,playerID,setrestartgame,setBefore
               <button className="modal-button gameover"
               onClick={
                 ()=>{
-                  if (isoppon!='gameover watingfornewplayer'){
+                  if (isoppon!='watingfornewplayer'){
                     sendWebSocketMessage('exit', false,playerID,{})
                   }
                   closeWebSocket(playerID)
