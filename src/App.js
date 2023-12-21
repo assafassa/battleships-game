@@ -19,7 +19,7 @@ function App() {
         <Navbar playerID={playerID} setsound={setsound} sound={sound}opponent={opponent}/>
         <div className="content">
           <Switch>
-            <Route exact path="/battleships-game/">
+            <Route exact path="/battleships-game">
               <Home setopponent={setopponent}setRedirected={setRedirected} setGameoption={setGameoption} 
               setPlayername={setPlayername} gameoption={gameoption} playername={playername}
               playerID={playerID} setPlayerID={setPlayerID}
