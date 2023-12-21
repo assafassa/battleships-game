@@ -19,15 +19,15 @@ function App() {
         <Navbar playerID={playerID} setsound={setsound} sound={sound}opponent={opponent}/>
         <div className="content">
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/battleships-game">
               <Home setopponent={setopponent}setRedirected={setRedirected} setGameoption={setGameoption} 
               setPlayername={setPlayername} gameoption={gameoption} playername={playername}
               playerID={playerID} setPlayerID={setPlayerID}
               />
             </Route>
-            <Route path="/game">
+            {isRedirected &&<Route path="/battleships-game/game">
               <Game sound={sound} setPlayerID={setPlayerID} setGameoption={setGameoption}setopponent={setopponent}opponent={opponent}gameoption={gameoption} playername={playername} playerID={playerID}/>
-            </Route>
+            </Route>}
           </Switch>
         </div>
       </div>
