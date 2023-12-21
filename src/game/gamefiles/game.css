@@ -32,6 +32,14 @@
     border-color:rgba(0, 0, 0, 0.358) ;
     margin-top: 0px;
 }
+.headmiddle{
+    width:200px;
+    height:40px;
+    display: flex;
+    justify-content: center;
+    margin-left: 35px;
+    margin-right: 35px;
+}
 .newsbord{
     
     color: rgb(195, 183, 255);
@@ -41,6 +49,7 @@
     background-color: rgba(0, 0, 0, 0.697) ;
     margin-top: 20px;
 }
+
 .js-button{
     height: 40px;
     width: 80px;
@@ -52,7 +61,7 @@
     font: inherit;
     color: red;
     font-size: 23px;
-    
+    margin-left: 20px;
 
 }
 .js-button:hover{

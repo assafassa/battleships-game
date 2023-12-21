@@ -7,6 +7,7 @@ import Headboard from './components/Headboard';
 import News from './components/News'
 import Livechat from './components/Livechat';
 import Modal from './components/Modals/Modal'
+import Timer from './components/Timer';
 import { aopopnentBoard, aopponentShips,aboard,aships} from './gamefiles/frontend/gameState';
 import{useReactiveGame} from './gamefiles/frontend/reactiveGame'
 import{readytoplay,takechosenspot,getoponchosenspot,comgetoponchosenspot,comtakechosenspot} from './gamefiles/backend/controler'
@@ -316,7 +317,14 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => 
           </div>
         </div>
         <div className='middle'>
-          <button className='js-button readybutton' onClick={readybuttonhandler}>Ready</button>
+          <div className="headmiddle">
+            {(gameoption=='computer')&&(
+              <Timer timer={{value:'00'}}/>
+            )}
+            <button className='js-button readybutton' onClick={readybuttonhandler}>Ready</button>
+            
+          </div>
+          
           <div className='newsbord'>
             <News news={newsboard} sound={sound}/>
 
