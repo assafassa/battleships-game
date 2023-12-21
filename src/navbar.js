@@ -27,7 +27,7 @@ const Navbar = ({playerID,setsound,opponent,sound}) => {
                 </div>
                 <div className='exit'
                 onClick={()=>{
-                    history.push('/')
+                    history.push('/battleships-game')
                     if (socket){
                         if(opponent){
                             sendWebSocketMessage('exit', false,playerID,{})
