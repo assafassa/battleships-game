@@ -13,7 +13,7 @@ import{readytoplay,takechosenspot,getoponchosenspot,comgetoponchosenspot,comtake
 import _, { set } from 'lodash';
 import {sendWebSocketMessage,socket} from './gamefiles/backend/websocket'
 
-const Game = ({setopponent,playerID, opponent, gameoption,playername}) => {
+const Game = ({setopponent,playerID, opponent, gameoption,playername,sound}) => {
   ////use states
   const [opopnentBoard, setOpopnentBoard] = useState(aopopnentBoard)
   const [opponentShips, setOpponentShips] = useState(aopponentShips)
@@ -318,7 +318,7 @@ const Game = ({setopponent,playerID, opponent, gameoption,playername}) => {
         <div className='middle'>
           <button className='js-button readybutton' onClick={readybuttonhandler}>Ready</button>
           <div className='newsbord'>
-            <News news={newsboard}/>
+            <News news={newsboard} sound={sound}/>
 
           </div>
           <div className='messegebord'>

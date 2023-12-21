@@ -1,13 +1,12 @@
 import React from 'react';
 
-const News = React.memo(({news}) => {
+const News = React.memo(({news,sound}) => {
     let newss
     let isbeforeGame
     let ischoosespot
     let isdifferent
     let randomnumber
     let isgif
-    let issound
     if (news){
         newss = news.replace(/\s/g, '')
         isbeforeGame=(newss=='beforeGame')
@@ -15,9 +14,8 @@ const News = React.memo(({news}) => {
         isdifferent=(!isbeforeGame&&!ischoosespot)
         randomnumber=''
         isgif=true
-        issound=true
 
-        if ((newss[0]=='y' || newss[0]=='o' )&& newss!='yousunk'){
+        if ((newss[0]=='y' || newss[0]=='o' )&& newss!='yousunk'&&newss!='opponentsunk'){
             isgif=false
             let gifrandomnumber=Math.floor(Math.random()*2)+1
             if (gifrandomnumber==2){
@@ -86,7 +84,7 @@ const News = React.memo(({news}) => {
             height: '176px',
             
             }}></img>
-            {issound&&(
+            {sound&&(
                 <audio autoPlay src={`${process.env.PUBLIC_URL}/images/newssounds/${newss}${randomnumber}.mp3`}></audio>
             )}
         </div>

@@ -16,7 +16,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar playerID={playerID} setsound={setsound}opponent={opponent}/>
+        <Navbar playerID={playerID} setsound={setsound} sound={sound}opponent={opponent}/>
         <div className="content">
           <Switch>
             <Route exact path="/">
@@ -26,7 +26,7 @@ function App() {
               />
             </Route>
             <Route path="/game">
-              <Game setPlayerID={setPlayerID} setGameoption={setGameoption}setopponent={setopponent}opponent={opponent}gameoption={gameoption} playername={playername} playerID={playerID}/>
+              <Game sound={sound} setPlayerID={setPlayerID} setGameoption={setGameoption}setopponent={setopponent}opponent={opponent}gameoption={gameoption} playername={playername} playerID={playerID}/>
             </Route>
           </Switch>
         </div>
