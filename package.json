@@ -1,4 +1,5 @@
 {
+  "homepage":"https://assafassa.github.io/battleships-game/",
   "name": "client",
   "version": "0.1.0",
   "private": true,
