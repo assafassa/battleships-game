@@ -46,7 +46,7 @@ const Modal = ({gameoption,opponent,beforeGame,playerID,setrestartgame,setBefore
                 if(isoppon=='playagain'){
                   sendWebSocketMessage('restartgame', false,playerID,{})
                   setrestartgame(true)
-                }else if (isoppon!='watingforpalyagain'){
+                }else if (isoppon!='watingforpalyagain'&&isoppon!='watingfornewplayer'){
                   sendWebSocketMessage('playagain', false,playerID,{})
                   setBeforeGame('gameover watingforpalyagain')
                 }
