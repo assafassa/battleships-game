@@ -68,7 +68,7 @@ const Modal = ({gameoption,opponent,beforeGame,playerID,setrestartgame,setBefore
                     sendWebSocketMessage('exit', false,playerID,{})
                   }
                   closeWebSocket(playerID)
-                  history.push('/')
+                  history.push('/battleships-game')
                 }
               }> to go back home</button>
             </div>
@@ -89,7 +89,7 @@ const Modal = ({gameoption,opponent,beforeGame,playerID,setrestartgame,setBefore
             <button className="modal-button"onClick={
               ()=>{
                 closeWebSocket(playerID)
-                history.push('/')
+                history.push('/battleships-game')
               }
             }>Go to Home</button>
             
@@ -113,7 +113,7 @@ const Modal = ({gameoption,opponent,beforeGame,playerID,setrestartgame,setBefore
               <button className="modal-button gameover"
               onClick={()=>{
                 closeWebSocket(playerID)
-                history.push('/')
+                history.push('/battleships-game')
               }
             }
               > to go back home</button>
