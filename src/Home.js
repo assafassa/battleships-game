@@ -20,7 +20,7 @@ const Home = ({playerID, setPlayerID, setopponent,setRedirected, setGameoption, 
                     setGameoption('online')
                     setopponent(receivedData.message)
                     setRedirected(true)
-                    history.push('/game')
+                    history.push('battleships-game/game')
                     socket.removeEventListener('message' ,handefunction)
                 }
             }
