@@ -4,8 +4,10 @@ import Home from './Home';
 import './styles/home.css'
 import Game from './game/Game';
 import { useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
+  const history=useHistory()
   const [isRedirected, setRedirected] = useState(false);
   const [playername, setPlayername]=useState('');
   const [playerID, setPlayerID]=useState(null);
@@ -25,9 +27,12 @@ function App() {
               playerID={playerID} setPlayerID={setPlayerID}
               />
             </Route>
-            {isRedirected &&<Route path="/battleships-game/game">
+            <Route path="/battleships-game/game">
+              {isRedirected &&
               <Game sound={sound} setPlayerID={setPlayerID} setGameoption={setGameoption}setopponent={setopponent}opponent={opponent}gameoption={gameoption} playername={playername} playerID={playerID}/>
-            </Route>}
+              }
+            </Route>
+            <Route path="/battleships-game"/>
           </Switch>
         </div>
       </div>
