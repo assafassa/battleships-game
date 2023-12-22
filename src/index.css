@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 body{
   background-image: url(../public/images/backgrounds2.png);
-  background-size: auto 400%;
+  background-size: 1366px 768px;
   background-repeat: repeat; 
   margin:0;
   font-family: "Staatliches";
-  height: 100vh;
+
   
   
   
