@@ -31,7 +31,6 @@ const Home = ({playerID, setPlayerID, setopponent,setRedirected, setGameoption, 
 
     const handleSubmit =(e)=>{
         e.preventDefault()
-        console.log(buttonpressed)
         if (gameoption==='online'&&(!buttonpressed)){
             if (socket==null){
                 let randomId=Math.floor(Math.random()*(10**9))
