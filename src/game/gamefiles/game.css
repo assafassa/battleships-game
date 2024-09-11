@@ -1,0 +1,128 @@
+
+.opponent{
+    text-align: right;
+}
+.name{
+    font-size: 23px;
+    margin-left: 20px;
+    margin-right: 20px;
+    color: rgb(135, 135, 135);
+}
+
+.littleboard{
+    display:flex;
+
+}
+.middle{
+    text-align: center;
+    align-content: center;
+    display: block;
+    width:270px;
+    height: 500px;
+    
+}
+.messegebord{
+    color: rgb(195, 183, 255);
+    font-size: 40px;
+    width:264px;
+    height: 180px;
+    background-color: rgba(189, 183, 255, 0.031) ;
+    border: '2px';
+    border-style: solid;
+    border-color:rgba(0, 0, 0, 0.358) ;
+    margin-top: 0px;
+}
+.headmiddle{
+    width:200px;
+    height:40px;
+    display: flex;
+    justify-content: center;
+    margin-left: 35px;
+    margin-right: 35px;
+}
+.newsbord{
+    
+    color: rgb(195, 183, 255);
+    font-size: 40px;
+    width:270px;
+    height: 220px;
+    background-color: rgba(0, 0, 0, 0.697) ;
+    margin-top: 20px;
+}
+
+.js-button{
+    height: 40px;
+    width: 80px;
+    background-color: rgba(189, 192, 255, 0.083);
+    border: '1px';
+    border-style: solid;
+    border-color:rgba(53, 30, 255, 0.201) ;
+    cursor:pointer;
+    font: inherit;
+    color: red;
+    font-size: 23px;
+    margin-left: 20px;
+
+}
+.js-button:hover{
+    background-color: rgba(146, 148, 190, 0.343);
+    font-weight: normal;
+    
+}
+.js-button:active{
+    background-color: rgb(39, 50, 255);
+    color: rgb(255, 172, 172);
+}
+.Headerpar{
+    margin-top: 10px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.685);
+}
+.par{
+    margin-left:15px ;
+    width:250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 30px;
+}
+.gap{
+    height: 3px;
+}
+.deepgap{
+    height: 20px;
+}
+.newsresult{
+    font-size: 25px;
+}
+.inputchat::placeholder{
+    color: black;
+}
+.sendbutton{
+    border:none;
+    color:blue;
+    font-family:inherit;
+
+}
+.sendbutton:hover{
+    background-color: rgba(240, 248, 255, 0.712);
+}
+.sendbutton:active{
+    background-color: rgba(0, 0, 255, 0.875);
+    color: rgb(234, 243, 252);
+}
+.yassqueen{
+    background-color: rgba(102, 155, 101, 0.619);
+}
+.scrollable-div::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+    background-color: rgba(73, 73, 73, 0.702);
+}
+
+.scrollable-div::-webkit-scrollbar-track {
+    background-color: transparent;
+}
