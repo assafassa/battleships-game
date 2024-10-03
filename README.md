@@ -61,5 +61,5 @@ Check out the live demo of the Battleships Game [**here**](https://assafassa.git
 
 ## 📸 Screenshots
  <div align="center">
-  <img src="https://i.imgur.com/XXVN8lL.png" alt="screenshot" width="600"/>
+  <img src="https://i.imgur.com/eyyqdeP.png" alt="screenshot" width="600"/>
 </div>
