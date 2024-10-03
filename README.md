@@ -31,8 +31,8 @@ Welcome to the **Battleships Game**, a fun and interactive web application where
   <img alt="Node.js" src="https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=node.js&logoColor=white">
 </a>
 &emsp;
-<a href="https://socket.io/" target="_blank">
-  <img alt="Socket.io" src="https://img.shields.io/badge/Socket.io-%23333333.svg?style=for-the-badge&logo=socket.io&logoColor=white">
+<a href="https://www.npmjs.com/package/ws" target="_blank">
+  <img alt="WebSocket" src="https://img.shields.io/badge/WebSocket-%23333333.svg?style=for-the-badge&logo=websocket&logoColor=white">
 </a>
 
 ---
@@ -43,18 +43,19 @@ Check out the live demo of the Battleships Game [**here**](https://assafassa.git
 
 ---
 
-## 📫 Get in Touch
-
-Let's connect!
+## 🙋‍♂️ Let's Connect
 
 <p align="center">
-  <a href="mailto:liel1939@gmail.com">
-    <img src="https://img.icons8.com/bubbles/50/000000/gmail.png" alt="Gmail" />
+  <a href="mailto:rsd.assafassa1414@gmail.com">
+    <img src="https://img.icons8.com/bubbles/50/000000/gmail.png" alt="Gmail"/>
   </a>
-  <a href="https://github.com/lielbsh">
-    <img src="https://img.icons8.com/bubbles/50/000000/github.png" alt="GitHub" />
+  <a href="https://github.com/assafassa">
+    <img src="https://img.icons8.com/bubbles/50/000000/github.png" alt="GitHub"/>
   </a>
-  <a href="https://www.linkedin.com/in/liel-benshmuel/">
-    <img src="https://img.icons8.com/bubbles/50/000000/linkedin.png" alt="LinkedIn" />
+  <a href="https://www.linkedin.com/in/assafassa/">
+    <img src="https://img.icons8.com/bubbles/50/000000/linkedin.png" alt="LinkedIn"/>
   </a>
 </p>
+
+<hr/>
+
