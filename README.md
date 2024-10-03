@@ -45,16 +45,11 @@ npm install
 
 # Start the development server
 npm start
-<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); max-width: 600px; margin: 20px auto;">
-    <h2 style="color: #343a40;">🔗 Live Demo</h2>
-    <p>
-        Play the game online at: 
-        <a href="https://assafassa.github.io/battleships-game" target="_blank" style="color: #007bff; text-decoration: none;">Battleships Game</a>
-    </p>
-    <p>While the frontend can be accessed online, ensure you run the backend locally to connect with it.</p>
 
-    <h2 style="color: #343a40;">🙋‍♂️ Let's Connect</h2>
-    <p>If you have any questions or suggestions, feel free to reach out!</p>
-    <p>📧 Email: <a href="mailto:rsd.assafassa1414@gmail.com" style="color: #007bff; text-decoration: none;">rsd.assafassa1414@gmail.com</a></p>
-    <p>🐙 GitHub: <a href="https://github.com/assafassa" target="_blank" style="color: #007bff; text-decoration: none;">assafassa</a></p>
-    <p>🔗 LinkedIn: <a href="https://www.linkedin.com/in/assaf-
+
+
+<h2 style="color: #343a40;">🙋‍♂️ Let's Connect</h2>
+<p>If you have any questions or suggestions, feel free to reach out!</p>
+<p>📧 Email: <a href="mailto:rsd.assafassa1414@gmail.com" style="color: #007bff; text-decoration: none;">rsd.assafassa1414@gmail.com</a></p>
+<p>🐙 GitHub: <a href="https://github.com/assafassa" target="_blank" style="color: #007bff; text-decoration: none;">assafassa</a></p>
+<p>🔗 LinkedIn: <a href="https://www.linkedin.com/in/assaf-assa" target="_blank" style="color: #007bff; text-decoration: none;">Assaf Assa</a></p>
